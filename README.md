@@ -44,9 +44,6 @@ expense-tracker/
 └── README.md       # Documentation file
 ```
 
-## Screenshots
-(Add screenshots of the UI here if available)
-
 ## Future Enhancements
 - Implement user authentication.
 - Add category-based expense filtering.
