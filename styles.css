@@ -1,0 +1,139 @@
+/* 🟤 Background and Font */
+body {
+    background-color: #f4f1ea;
+    font-family: 'Times New Roman', serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* 📝 Header Styling */
+h1 {
+    color: #5a4634;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* 📦 Main Container */
+#container {
+    width: 320px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin: 40px auto;
+    text-align: center;
+    background-color: #e5d7c6;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+/* 📋 Form Inputs */
+#container form select,
+#container form input {
+    width: 90%;
+    height: 35px;
+    border: 1px solid #8b7d6b;
+    background-color: #f4efe9;
+    color: #5a4634;
+    padding: 5px;
+    border-radius: 5px;
+    outline: none;
+}
+
+/* 🎯 Submit Button */
+button {
+    display: block;
+    margin: 20px auto;
+    width: 200px;
+    height: 45px;
+    border-radius: 15px;
+    background: linear-gradient(145deg, #6d5d4b, #5a4634);
+    color: white;
+    border: none;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3), 
+                -4px -4px 10px rgba(255, 255, 255, 0.2);
+}
+
+button:hover {
+    cursor: pointer;
+    background: linear-gradient(145deg, #5a4634, #8b7d6b);
+    transform: scale(1.05);
+    box-shadow: 0px 4px 15px rgba(90, 70, 52, 0.5);
+}
+
+/* 🗂️ Card Layout */
+#cards {
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin: 50px auto;
+    justify-content: center;
+    max-width: 1200px;
+}
+
+/* 🎴 Card Styling with 3D Effect */
+#cards figure {
+    background-color: #e5d7c6;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 200px;
+    transform-style: preserve-3d;
+    perspective: 600px;
+}
+
+/* 3D Hover Effect */
+#cards figure:hover {
+    transform: rotateY(var(--rotation, 0deg)) rotateX(var(--tilt, 0deg));
+    box-shadow: 0px 6px 20px rgba(90, 70, 52, 0.5);
+}
+
+
+#cards figure h3 {
+    color: #5a4634;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#cards figure p {
+    color: #5a4634;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+
+#cards figure button {
+    width: 120px;
+    height: 35px;
+    border-radius: 10px;
+    background: #5a4634;
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+#cards figure button:hover {
+    background: #8b7d6b;
+    transform: scale(1.05);
+    box-shadow: 0px 4px 15px rgba(90, 70, 52, 0.5);
+}
+
+
+@media (max-width: 768px) {
+    #container {
+        width: 90%;
+    }
+
+    #cards {
+        width: 100%;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+}

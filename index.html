@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1><u>EXPENSE TRACKER</u></h1>
+    <div id="container">
+        <div>
+            <form id="expenseForm">
+                <p>Select Month</p>
+                <select id="monthsName"></select>
+
+                <p>Income</p>
+                <input type="number" id="incomeRs" placeholder="Enter income in Rs.">
+
+                <p>Expense Name</p>
+                <input type="text" id="expenseName" placeholder="Enter expense name.">
+
+                <p>Expense</p>
+                <input type="number" id="expenseRs" placeholder="Enter expense in Rs.">
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div id="cards"></div>
+
+    <script>
+        // Populate Month Dropdown
+let monthsArr = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+];
+let optionList = document.getElementById("monthsName").options;
+monthsArr.forEach(month => optionList.add(new Option(month)));
+
+document.getElementById("expenseForm").addEventListener("submit", storeResult);
+let details = JSON.parse(localStorage.getItem("tracker")) || [];
+
+function storeResult(event) {
+    event.preventDefault();
+
+    let monthName = document.getElementById("monthsName").value;
+    let incomeRupees = document.getElementById("incomeRs").value.trim();
+    let expenseName = document.getElementById("expenseName").value.trim();
+    let expenseRupees = document.getElementById("expenseRs").value.trim();
+
+    incomeRupees = Number(incomeRupees);
+    expenseRupees = Number(expenseRupees);
+
+    if (!incomeRupees || incomeRupees <= 0 || !expenseName || !expenseRupees || expenseRupees <= 0 || expenseRupees > incomeRupees) {
+        alert("Please enter valid inputs.");
+        return;
+    }
+
+    let detail = {
+        monthName,
+        incomeRupees,
+        expenseName,
+        expenseRupees,
+        savingsRupees: incomeRupees - expenseRupees
+    };
+
+    details.push(detail);
+    localStorage.setItem("tracker", JSON.stringify(details));
+    displayResult();
+    document.getElementById("expenseForm").reset();
+}
+
+function displayResult() {
+    let cardsContainer = document.querySelector("#cards");
+    cardsContainer.innerHTML = "";
+
+    details.forEach((ele, index) => {
+        let figure = document.createElement("figure");
+        figure.classList.add("td-card");
+        figure.setAttribute("data-rotation", "5");
+        figure.setAttribute("data-perspective", "600px");
+
+        let box = document.createElement("div");
+        box.classList.add("card-content");
+
+        box.innerHTML = `
+            <h3>${ele.monthName}</h3>
+            <p>Income: Rs ${ele.incomeRupees}/-</p>
+            <p>Expense: ${ele.expenseName} - Rs ${ele.expenseRupees}/-</p>
+            <p>Savings: Rs ${ele.savingsRupees}/-</p>
+        `;
+
+        let deleteBtn = document.createElement("button");
+        deleteBtn.innerText = "Delete";
+        deleteBtn.addEventListener("click", () => removeExpense(index));
+
+        box.appendChild(deleteBtn);
+        figure.appendChild(box);
+        cardsContainer.appendChild(figure);
+
+        
+        figure.addEventListener("mousemove", (e) => {
+            let rotation = (e.clientX / window.innerWidth - 0.5) * 10;
+            let tilt = (e.clientY / window.innerHeight - 0.5) * 10;
+            figure.style.setProperty("--rotation", `${rotation}deg`);
+            figure.style.setProperty("--tilt", `${tilt}deg`);
+        });
+    });
+}
+
+function removeExpense(index) {
+    details.splice(index, 1);
+    localStorage.setItem("tracker", JSON.stringify(details));
+    displayResult();
+}
+
+displayResult();
+    </script>
+
+</body>
+
+</html>
