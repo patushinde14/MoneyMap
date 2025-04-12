@@ -19,7 +19,7 @@ The **Expense Tracker** is a simple web application that helps users track their
 ## Installation
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-username/expense-tracker.git
+   git clone https://github.com/patushinde14/expense-tracker.git
    ```
 2. Navigate to the project folder:
    ```sh
